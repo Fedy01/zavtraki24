@@ -1,17 +1,78 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Меню — Завтраки24</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>Меню</h1>
-  <ul>
-  {% for item in items %}
-    <li>{{ item.name }} — {{ item.price }} ₽</li>
-  {% endfor %}
-  </ul>
-  <a href="{% url 'home' %}">На главную</a>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+  <header class="bg-white shadow-sm">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="{% url 'home' %}" class="text-2xl font-extrabold">Zavtraki24</a>
+      <nav class="space-x-4">
+        <a href="{% url 'menu' %}" class="text-gray-600 hover:text-gray-900">Меню</a>
+        <a href="{% url 'promotions' %}" class="text-gray-600 hover:text-gray-900">Акции</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-10">
+    <h1 class="text-4xl font-bold mb-6 text-center">🍽 Меню</h1>
+    <p class="text-center text-gray-500 mb-8">Выбери блюдо — всё свежее и вкусное.</p>
+
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {% for item in items %}
+      <article class="bg-white rounded-2xl shadow-md overflow-hidden group">
+        <div class="relative">
+          {% if item.image %}
+            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-48 object-cover">
+          {% else %}
+            <img src="{% static 'images/no_image.jpg' %}" alt="Нет фото" class="w-full h-48 object-cover">
+          {% endif %}
+          <!-- небольшой градиент сверху для контраста названия -->
+          <div class="absolute left-0 bottom-0 w-full bg-gradient-to-t from-black/50 to-transparent p-3">
+            <h2 class="text-white text-lg font-semibold">{{ item.name }}</h2>
+          </div>
+        </div>
+
+        <div class="p-4 flex flex-col justify-between h-40">
+          <div class="mb-2">
+            <p class="text-gray-600 text-sm line-clamp-3">{{ item.description }}</p>
+          </div>
+
+          <div class="mt-3 flex items-center justify-between">
+            <div>
+              <span class="text-lg font-bold text-amber-600">{{ item.price }} BYN</span>
+              <span class="text-xs text-gray-400 ml-1">/ порция</span>
+            </div>
+
+            <button
+              class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium px-3 py-2 rounded-lg shadow-sm transform group-hover:-translate-y-0.5 transition">
+              <!-- иконка + текст -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+              Добавить
+            </button>
+          </div>
+        </div>
+      </article>
+      {% empty %}
+      <div class="col-span-full text-center py-20">
+        <p class="text-gray-500">Меню пока пустое 😢</p>
+        <p class="text-sm text-gray-400 mt-2">Добавь блюда через админку</p>
+      </div>
+      {% endfor %}
+    </div>
+  </main>
+
+  <footer class="mt-12 py-8 text-center text-sm text-gray-400">
+    © {{ now.year }} Zavtraki24 — Все права защищены.
+  </footer>
 
 </body>
 </html>
