@@ -1,12 +1,260 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Донер Амир - Главная страница</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                        url('https://avatars.mds.yandex.net/get-altay/5498343/2a0000017e791b34a8d73ece9ad498a7e471/XXXL');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 20px 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .nav__list {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav__list-info {
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav__list-info:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .nav__list-info.active {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .nav__telephone {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.1);
+            padding: 12px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav__telephone img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Header Content */
+        .header__content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .header__content-desc {
+            animation: fadeInUp 1s ease;
+        }
+
+        .header__content-name {
+            font-size: 4.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .header__content-slogan {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .features__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav__list {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .header__content-name {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Добро пожаловать на наш сайт!</h1>
-        <a href="{% url 'menu' %}">Меню</a>
-        <a href="{% url 'promotions' %}">Акции</a>
+    <header class="header">
+        <div class="container">
+            <div class="header__top">
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li class="nav__list-info">
+                            <a href="{% url 'promotions' %}" style="color: inherit; text-decoration: none;">🎉 Акции</a>
+                        </li>
+                        <li class="nav__list-info">
+                            📰 Новости
+                        </li>
+                        <li class="nav__list-info">
+                            🚚 Доставка
+                        </li>
+                    </ul>
+                    <div class="nav__telephone">
+                        <img src="https://memi.klev.club/uploads/posts/2024-04/memi-klev-club-054l-p-memi-kot-shaurma-22.jpg" alt="phone logo">
+                        <span>📞 +375 44 552-98-51</span>
+                    </div>
+                </nav>
+            </div>
+            <div class="header__content">
+                <div class="header__content-desc">
+                    <div class="header__content-name">
+                        Донер Амир
+                    </div>
+                    <div class="header__content-slogan">
+                        Вкус, который заставляет возвращаться снова и снова!
+                    </div>
+                    <a href="{% url 'menu' %}" class="cta-button">Посмотреть меню</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="features">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 20px;">Почему выбирают нас?</h2>
+            <div class="features__grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🍴</div>
+                    <h3>Свежие ингредиенты</h3>
+                    <p>Только свежие продукты и качественное мясо</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Быстрая доставка</h3>
+                    <p>Доставляем за 30 минут или дарим скидку</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Выгодные цены</h3>
+                    <p>Лучшее соотношение цены и качества</p>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
