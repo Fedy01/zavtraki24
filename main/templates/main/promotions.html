@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-  <h1>Акции</h1>
-  <p>Здесь будут отображаться наши акции!</p>
-  <a href="{% url 'home' %}">На главную</a>
-</body>
-</html>
+{% extends 'main/base.html' %}
+{% block title %}Акции{% endblock %}
+{% block content %}
+    <div class="text-center py-20">
+        <h1 class="text-3xl font-bold mb-4">🔥 Наши акции</h1>
+        <p class="text-lg text-gray-600 mb-6">Следи за обновлениями — скоро здесь появятся выгодные предложения!</p>
+    </div>
+{% endblock %}

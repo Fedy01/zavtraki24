@@ -1,0 +1,8 @@
+{% extends "main/base.html" %}
+{% block title %}Заказ принят{% endblock %}
+
+{% block content %}
+<h1>Спасибо за заказ!</h1>
+<p>Мы свяжемся с вами в ближайшее время.</p>
+<a href="{% url 'menu' %}">Вернуться в меню</a>
+{% endblock %}

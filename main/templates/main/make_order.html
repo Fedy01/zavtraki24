@@ -1,0 +1,14 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Оформить заказ{% endblock %}
+
+{% block content %}
+<h1>Оформить заказ</h1>
+
+<form method="post" class="order-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Отправить заказ</button>
+</form>
+{% endblock %}

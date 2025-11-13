@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>Добро пожаловать на наш сайт!</h1>
-        <a href="{% url 'menu' %}">Меню</a>
-        <a href="{% url 'promotions' %}">Акции</a>
-</body>
-</html>
+{% extends 'main/base.html' %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+    <div class="text-center py-20">
+        <h1 class="text-4xl font-bold mb-4">Добро пожаловать на Zavtraki24 🥞</h1>
+        <p class="text-lg text-gray-600 mb-6">Самые вкусные завтраки в городе — быстро, свежо, с любовью!</p>
+        <a href="{% url 'menu' %}" class="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg transition">Посмотреть меню</a>
+    </div>
+{% endblock %}
