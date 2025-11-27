@@ -21,6 +21,13 @@ class MenuItem(models.Model):
 
 
 class Order(models.Model):
+    STATUS_CHOICES = [
+        ("NEW", "Создан"),
+        ("COOKING", "Готовится"),
+        ("DELIVERY", "В пути"),
+        ("DONE", "Доставлен"),
+    ]
+
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -28,11 +35,21 @@ class Order(models.Model):
         blank=True,
         verbose_name="Пользователь",
     )
+    courier = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        related_name="deliveries",
+        on_delete=models.SET_NULL,
+        verbose_name="Курьер"
+    )
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="NEW", verbose_name="Статус")
     created_at = models.DateTimeField(default=timezone.now, verbose_name="Время создания")
     name = models.CharField(max_length=100, verbose_name="Имя клиента")
     phone = models.CharField(max_length=20, verbose_name="Телефон")
     address = models.CharField(max_length=255, verbose_name="Адрес доставки", blank=True)
     comment = models.TextField(verbose_name="Комментарий", blank=True)
+    telegram_chat_id = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return f"Заказ #{self.id} от {self.name}"

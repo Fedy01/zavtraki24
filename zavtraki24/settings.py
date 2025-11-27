@@ -124,3 +124,7 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Telegram admin chat id & bot token (только в .env в проде)
+TELEGRAM_BOT_TOKEN = "8412427341:AAH1BR1cAxHrUXt9W_qsIqPuxue-bXrXLdg"
+TELEGRAM_ADMIN_CHAT_ID = 123   # chat id

@@ -1,8 +1,457 @@
-{% extends 'main/base.html' %}
-{% block title %}Акции{% endblock %}
-{% block content %}
-    <div class="text-center py-20">
-        <h1 class="text-3xl font-bold mb-4">🔥 Наши акции</h1>
-        <p class="text-lg text-gray-600 mb-6">Следи за обновлениями — скоро здесь появятся выгодные предложения!</p>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--  <h1>Акции</h1>-->
+<!--  <p>Здесь будут отображаться наши акции!</p>-->
+<!--  <a href="{% url 'home' %}">На главную</a>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Донер Амир - Акции</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Common buttons */
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Promotions Header */
+        .promotions-header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8));
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .promotions-title {
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+
+        /* Promotions Container */
+        .promotions-container {
+            background: white;
+            border-radius: 20px;
+            margin: 40px auto;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 1000px;
+        }
+
+        /* Promotions Grid */
+        .promotions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .promotion-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            padding: 30px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promotion-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .promotion-card:hover::before {
+            transform: rotate(45deg) translate(50px, 50px);
+        }
+
+        .promotion-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .promotion-card:nth-child(2) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .promotion-card:nth-child(3) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .promotion-card:nth-child(4) {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .promotion-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .promotion-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .promotion-description {
+            margin-bottom: 20px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .promotion-dates {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .promotion-discount {
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Admin Section */
+        .admin-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .admin-title {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .promotion-form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .btn-save {
+            background: linear-gradient(45deg, #43e97b, #38f9d7);
+            flex: 2;
+        }
+
+        .btn-cancel {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            flex: 1;
+        }
+
+        /* Empty State */
+        .empty-promotions {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            background: white;
+            border-radius: 20px;
+        }
+
+        .empty-promotions h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .promotions-title {
+                font-size: 2.5rem;
+            }
+
+            .promotions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .promotions-container {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease;
+        }
+    </style>
+</head>
+<body>
+    <header class="promotions-header">
+        <div class="container">
+            <h1 class="promotions-title">Акции</h1>
+            <a href="{% url 'home' %}" class="back-button">🏠 На главную</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="promotions-container fade-in">
+            <!-- Сетка акций -->
+            <div class="promotions-grid">
+                <div class="promotion-card">
+                    <div class="promotion-badge">Активно</div>
+                    <h3 class="promotion-title">Скидка 20% на первый заказ</h3>
+                    <p class="promotion-description">Для новых клиентов - специальное предложение при первом заказе через сайт</p>
+                    <div class="promotion-dates">до 31.12.2024</div>
+                    <div class="promotion-discount">-20%</div>
+                </div>
+
+                <div class="promotion-card">
+                    <div class="promotion-badge">Активно</div>
+                    <h3 class="promotion-title">2 донера по цене 1</h3>
+                    <p class="promotion-description">При заказе двух классических донеров второй вы получаете бесплатно</p>
+                    <div class="promotion-dates">до 25.12.2024</div>
+                    <div class="promotion-discount">1+1=1</div>
+                </div>
+
+                <div class="promotion-card">
+                    <div class="promotion-badge">Скоро</div>
+                    <h3 class="promotion-title">Бесплатная доставка</h3>
+                    <p class="promotion-description">При заказе от 500 рублей доставка бесплатно в пределах города</p>
+                    <div class="promotion-dates">с 01.01.2025</div>
+                    <div class="promotion-discount">🚚 FREE</div>
+                </div>
+
+                <div class="promotion-card">
+                    <div class="promotion-badge">Активно</div>
+                    <h3 class="promotion-title">Комбо обед</h3>
+                    <p class="promotion-description">Донер + картофель фри + напиток всего за 390 рублей вместо 450</p>
+                    <div class="promotion-dates">постоянно</div>
+                    <div class="promotion-discount">-60₽</div>
+                </div>
+            </div>
+
+            <!-- Панель администратора для управления акциями -->
+            <div class="admin-section">
+                <h2 class="admin-title">Управление акциями</h2>
+                <div class="promotion-form">
+                    <form id="promotionForm">
+                        <div class="form-group">
+                            <label for="promotionTitle">Название акции</label>
+                            <input type="text" class="form-control" id="promotionTitle" placeholder="Введите название акции">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="promotionDescription">Описание акции</label>
+                            <textarea class="form-control" id="promotionDescription" rows="3" placeholder="Подробное описание акции"></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="startDate">Дата начала</label>
+                                <input type="date" class="form-control" id="startDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="endDate">Дата окончания</label>
+                                <input type="date" class="form-control" id="endDate">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="discountValue">Размер скидки</label>
+                                <input type="text" class="form-control" id="discountValue" placeholder="Например: -20% или 1+1=1">
+                            </div>
+                            <div class="form-group">
+                                <label for="promotionStatus">Статус акции</label>
+                                <select class="form-control" id="promotionStatus">
+                                    <option value="active">Активно</option>
+                                    <option value="soon">Скоро</option>
+                                    <option value="finished">Завершено</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="btn-group">
+                            <button type="submit" class="cta-button btn-save">💾 Сохранить акцию</button>
+                            <button type="button" class="cta-button btn-cancel" onclick="clearForm()">❌ Отмена</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-{% endblock %}
+
+    <script>
+        // Обработка формы
+        document.getElementById('promotionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const title = document.getElementById('promotionTitle').value;
+            const description = document.getElementById('promotionDescription').value;
+            const discount = document.getElementById('discountValue').value;
+            const status = document.getElementById('promotionStatus').value;
+
+            if (title && description && discount) {
+                alert(`Акция "${title}" успешно сохранена!`);
+                clearForm();
+                // Здесь можно добавить логику для отправки данных на сервер
+            } else {
+                alert('Пожалуйста, заполните все обязательные поля!');
+            }
+        });
+
+        function clearForm() {
+            document.getElementById('promotionForm').reset();
+        }
+
+        // Пример динамического добавления акции (для демонстрации)
+        function addPromotion(title, description, discount, status) {
+            const grid = document.querySelector('.promotions-grid');
+            const statusText = status === 'active' ? 'Активно' : status === 'soon' ? 'Скоро' : 'Завершено';
+
+            const promotionHTML = `
+                <div class="promotion-card">
+                    <div class="promotion-badge">${statusText}</div>
+                    <h3 class="promotion-title">${title}</h3>
+                    <p class="promotion-description">${description}</p>
+                    <div class="promotion-dates">до 31.12.2024</div>
+                    <div class="promotion-discount">${discount}</div>
+                </div>
+            `;
+
+            grid.insertAdjacentHTML('beforeend', promotionHTML);
+        }
+
+        // Демонстрация добавления акции
+        // addPromotion('Новая акция', 'Описание новой акции', '-15%', 'active');
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends "main/base.html" %}
+{% block title %}Статус заказа{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>Изменить статус заказа #{{ order.id }}</h3>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Статус:</label>
+            <select name="status" class="form-select">
+                {% for key, label in statuses %}
+                    <option value="{{ key }}" {% if key == order.status %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button class="btn btn-primary">Сохранить</button>
+    </form>
+</div>
+{% endblock %}

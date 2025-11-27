@@ -1,5 +1,5 @@
 from main.models import MenuItem
-from telegram import Update
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes
 from asgiref.sync import sync_to_async
 
@@ -7,7 +7,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Привет! Напиши /menu, чтобы увидеть меню.")
 
 async def menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    items = await sync_to_async(list)(MenuItem.objects.all())
+    items = await sync_to_async(list)(MenuItem.objects.all()[:10])
 
     if not items:
         await update.message.reply_text("Меню пока пустое 😢")
@@ -15,6 +15,6 @@ async def menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = "🍽 Меню:\n\n"
     for item in items:
-        message += f"• {item.name} — {item.price} BYN\n{item.description}\n\n"
-
-    await update.message.reply_text(message)
+        text = f"{item.name}\n{item.description}\n{item.price} BYN"
+        keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("Добавить в корзину", callback_data=f"add:{item.id}")]])
+        await update.message.reply_text(text, reply_markup=keyboard)

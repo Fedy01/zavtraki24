@@ -17,3 +17,5 @@ app.add_handler(CommandHandler("menu", menu))
 
 print("Бот запущен...")
 app.run_polling()
+
+# Чтобы запустить бота сначало надо запустить сервак а потом написать "python -m bot.bot"

@@ -12,3 +12,29 @@
     <button type="submit">Отправить заказ</button>
 </form>
 {% endblock %}
+
+
+{% extends "main/base.html" %}
+{% block title %}Оформление заказа{% endblock %}
+{% block content %}
+<h1>Оформление заказа</h1>
+
+<h2>Ваши блюда</h2>
+{% if cart_items %}
+  <ul>
+  {% for r in cart_items %}
+    <li>{{ r.item.name }} × {{ r.qty }} — {{ r.sum }}</li>
+  {% endfor %}
+  </ul>
+  <p>Итого: {{ total }} BYN</p>
+{% else %}
+  <p>Корзина пуста</p>
+{% endif %}
+
+<h2>Данные для заказа</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Подтвердить заказ</button>
+</form>
+{% endblock %}
