@@ -9,6 +9,10 @@ from .decorators import manager_required, courier_required
 from .utils import notify_new_order
 from .decorators import kitchen_required
 
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
+
 CART_SESSION_ID = "cart"
 
 
@@ -246,3 +250,26 @@ def kitchen_send_to_delivery(request, order_id):
     notify_client(order, f"Ваш заказ #{order.id} передан курьеру 🚗")
 
     return redirect("kitchen_orders")
+
+
+@csrf_exempt
+def quickresto_webhook(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            event_type = data.get('event')
+
+            if event_type == 'order.created':
+                # Обработка нового заказа
+                order_data = data.get('data')
+                # Сохранение в вашей БД
+
+            elif event_type == 'order.updated':
+                # Обновление статуса заказа
+                pass
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+    return JsonResponse({'status': 'error'}, status=405)

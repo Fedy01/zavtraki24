@@ -80,7 +80,12 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+QUICK_RESTO = {
+    'LOGIN': 'your_api_login',
+    'PASSWORD': 'your_api_password',
+    'COMPANY_ID': 'your_company_id',
+    'API_URL': 'https://api.quickresto.ru'
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
