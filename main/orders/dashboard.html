@@ -1,0 +1,24 @@
+<!-- orders/dashboard.html -->
+<div class="order-board">
+    <div class="order-column" id="new-orders">
+        <h3>Новые</h3>
+        {% for order in new_orders %}
+        <div class="order-card" data-order-id="{{ order.id }}">
+            <h5>Заказ #{{ order.id }}</h5>
+            <p>Клиент: {{ order.client.name }}</p>
+            <p>Время: {{ order.requested_delivery_dt|time }}</p>
+            <button class="btn btn-sm btn-success accept-order">Принять</button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="order-column" id="preparing">
+        <h3>Готовятся</h3>
+        <!-- ... -->
+    </div>
+
+    <div class="order-column" id="delivery">
+        <h3>В доставке</h3>
+        <!-- ... -->
+    </div>
+</div>

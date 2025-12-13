@@ -2,7 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 
-from .models import MenuItem, Order, OrderItem
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+from django.views import View
+from django.http import JsonResponse
+
+from .models import MenuItem, Order, OrderItem, OrderComment
 from .forms import OrderForm
 from .decorators import manager_required, courier_required
 
@@ -273,3 +278,41 @@ def quickresto_webhook(request):
             return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
 
     return JsonResponse({'status': 'error'}, status=405)
+
+
+# views.py - Dashboard для отслеживания заказов
+class OrderDashboardView(LoginRequiredMixin, TemplateView):
+    template_name = 'orders/dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Группировка заказов по статусам
+        context['new_orders'] = Order.objects.filter(status='NEW')
+        context['preparing_orders'] = Order.objects.filter(status='READY_FOR_PACKING')
+        context['on_the_way_orders'] = Order.objects.filter(status='ON_THE_WAY')
+        context['delivered_orders'] = Order.objects.filter(status='DELIVERED')
+
+        return context
+
+
+class AddOrderCommentView(LoginRequiredMixin, View):
+    def post(self, request, order_id):
+        order = get_object_or_404(Order, id=order_id)
+        comment_text = request.POST.get('comment')
+
+        comment = OrderComment.objects.create(
+            order=order,
+            author=request.user,
+            comment=comment_text,
+            is_internal=request.POST.get('is_internal') == 'true'
+        )
+
+        return JsonResponse({
+            'success': True,
+            'comment': {
+                'text': comment.comment,
+                'author': comment.author.get_full_name(),
+                'created_at': comment.created_at.strftime('%H:%M')
+            }
+        })
