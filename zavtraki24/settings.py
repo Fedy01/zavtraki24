@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'main',
+    'quickresto_api',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,9 @@ ROOT_URLCONF = 'zavtraki24.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+BASE_DIR / 'main/templates',  # Добавьте эту строку
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,13 +83,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-QUICK_RESTO = {
-    'LOGIN': 'your_api_login',
-    'PASSWORD': 'your_api_password',
-    'COMPANY_ID': 'your_company_id',
-    'API_URL': 'https://api.quickresto.ru'
+# settings.py - ДОБАВЬТЕ ЭТО
+QUICK_RESTO_API = {
+    'BASE_URL': 'https://{layer_name}.quickresto.ru/platform/online',
+    'LAYER_NAME': 'demo',  # или ваше облако
+    'USERNAME': 'ваш_логин',
+    'PASSWORD': 'ваш_пароль',
+    'TIMEOUT': 30,
 }
 
+# QUICKRESTO_API_KEY = 'ваш_api_ключ'
+# QUICKRESTO_API_SECRET = 'ваш_api_секрет'
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -133,3 +140,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Telegram admin chat id & bot token (только в .env в проде)
 TELEGRAM_BOT_TOKEN = "8412427341:AAH1BR1cAxHrUXt9W_qsIqPuxue-bXrXLdg"
 TELEGRAM_ADMIN_CHAT_ID = 123   # chat id
+
+
+
+
+CELERY_BEAT_SCHEDULE = {
+    'sync-quickresto-orders': {
+        'task': 'your_app.tasks.sync_orders_with_quickresto',
+        'schedule': 300.0,  # Каждые 5 минут
+    },
+    'sync-quickresto-menu': {
+        'task': 'your_app.tasks.sync_menu_with_quickresto',
+        'schedule': 3600.0,  # Каждый час
+    },
+}

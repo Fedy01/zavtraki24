@@ -326,3 +326,45 @@ class QuickRestoOrder(models.Model):
 
     def __str__(self):
         return f"Order {self.order_number}"
+
+
+
+class QuickRestoOrder(models.Model):
+    ORDER_STATUS = (
+        ('new', 'Новый'),
+        ('confirmed', 'Подтвержден'),
+        ('cooking', 'Готовится'),
+        ('ready', 'Готов'),
+        ('completed', 'Завершен'),
+        ('cancelled', 'Отменен'),
+    )
+
+    quickresto_id = models.CharField(max_length=100, unique=True)
+    order_number = models.CharField(max_length=50)
+    table_name = models.CharField(max_length=200, blank=True)
+    customer_name = models.CharField(max_length=200, blank=True)
+    customer_phone = models.CharField(max_length=50, blank=True)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=ORDER_STATUS)
+    created_at = models.DateTimeField()
+    updated_at = models.DateTimeField(auto_now=True)
+    quickresto_data = models.JSONField(default=dict)  # Полные данные из API
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Заказ {self.order_number} - {self.customer_name}"
+
+
+class QuickRestoMenuItem(models.Model):
+    quickresto_id = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=200)
+    category_name = models.CharField(max_length=200, blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField(blank=True)
+    is_active = models.BooleanField(default=True)
+    last_sync = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name

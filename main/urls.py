@@ -3,6 +3,8 @@ from . import views
 from rest_framework.routers import DefaultRouter
 from main.api import MenuItemViewSet
 from django.contrib.auth import views as auth_views
+from django.contrib import admin  # ← ДОБАВЬТЕ ЭТО!
+from django.urls import path, include
 
 router = DefaultRouter()
 router.register(r'menu', MenuItemViewSet, basename='menu')
@@ -10,6 +12,8 @@ router.register(r'menu', MenuItemViewSet, basename='menu')
 urlpatterns = [
 
     *router.urls,
+    path('admin/', admin.site.urls),
+    path('webhook/quickresto/', views.quickresto_webhook, name='quickresto-webhook'),
 
     # Основные страницы
     path("", views.home, name="home"),
@@ -43,4 +47,12 @@ urlpatterns = [
     path("kitchen/orders/", views.kitchen_orders, name="kitchen_orders"),
     path("kitchen/orders/<int:order_id>/cook/", views.kitchen_set_cooking, name="kitchen_set_cooking"),
     path("kitchen/orders/<int:order_id>/delivery/", views.kitchen_send_to_delivery, name="kitchen_send_to_delivery"),
+    # Панель управления заказами
+    path('orders/dashboard/', views.OrderDashboardView.as_view(), name='order_dashboard'),
+
+    # API для комментариев (если нужно)
+    path('orders/<int:order_id>/comment/', views.AddOrderCommentView.as_view(), name='add_order_comment'),
+    path('api/sync-orders/', views.sync_quickresto_orders, name='sync-orders'),
+    path('api/order-status/<str:order_id>/', views.get_order_status, name='order-status'),
+    path('api/quickresto/', include('quickresto_api.urls')),
 ]

@@ -1,19 +1,281 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ru">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Донер Амир - Главная страница</title>-->
+<!--    <style>-->
+<!--        * {-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            font-family: 'Arial', sans-serif;-->
+<!--            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);-->
+<!--            color: #333;-->
+<!--            line-height: 1.6;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            max-width: 1200px;-->
+<!--            margin: 0 auto;-->
+<!--            padding: 0 20px;-->
+<!--        }-->
+
+<!--        /* Header Styles */-->
+<!--        .header {-->
+<!--            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),-->
+<!--                        url('https://avatars.mds.yandex.net/get-altay/5498343/2a0000017e791b34a8d73ece9ad498a7e471/XXXL');-->
+<!--            background-size: cover;-->
+<!--            background-position: center;-->
+<!--            color: white;-->
+<!--            padding: 20px 0;-->
+<!--            min-height: 100vh;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--        }-->
+
+<!--        /* Navigation */-->
+<!--        .nav {-->
+<!--            display: flex;-->
+<!--            justify-content: space-between;-->
+<!--            align-items: center;-->
+<!--            padding: 20px 0;-->
+<!--        }-->
+
+<!--        .nav__list {-->
+<!--            display: flex;-->
+<!--            list-style: none;-->
+<!--            gap: 40px;-->
+<!--        }-->
+
+<!--        .nav__list-info {-->
+<!--            padding: 12px 24px;-->
+<!--            border-radius: 25px;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s ease;-->
+<!--            font-weight: 600;-->
+<!--            background: rgba(255,255,255,0.1);-->
+<!--            backdrop-filter: blur(10px);-->
+<!--            border: 1px solid rgba(255,255,255,0.2);-->
+<!--        }-->
+
+<!--        .nav__list-info:hover {-->
+<!--            background: rgba(255,255,255,0.2);-->
+<!--            transform: translateY(-2px);-->
+<!--            box-shadow: 0 5px 15px rgba(0,0,0,0.3);-->
+<!--        }-->
+
+<!--        .nav__list-info.active {-->
+<!--            background: linear-gradient(45deg, #FF6B6B, #FF8E53);-->
+<!--            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);-->
+<!--        }-->
+
+<!--        .nav__telephone {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            gap: 15px;-->
+<!--            background: rgba(255,255,255,0.1);-->
+<!--            padding: 12px 20px;-->
+<!--            border-radius: 25px;-->
+<!--            backdrop-filter: blur(10px);-->
+<!--        }-->
+
+<!--        .nav__telephone img {-->
+<!--            width: 30px;-->
+<!--            height: 30px;-->
+<!--            border-radius: 50%;-->
+<!--            object-fit: cover;-->
+<!--        }-->
+
+<!--        /* Header Content */-->
+<!--        .header__content {-->
+<!--            flex: 1;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .header__content-desc {-->
+<!--            animation: fadeInUp 1s ease;-->
+<!--        }-->
+
+<!--        .header__content-name {-->
+<!--            font-size: 4.5rem;-->
+<!--            font-weight: bold;-->
+<!--            margin-bottom: 20px;-->
+<!--            background: linear-gradient(45deg, #FF6B6B, #FF8E53, #4ECDC4);-->
+<!--            -webkit-background-clip: text;-->
+<!--            -webkit-text-fill-color: transparent;-->
+<!--            text-shadow: 0 5px 15px rgba(0,0,0,0.3);-->
+<!--        }-->
+
+<!--        .header__content-slogan {-->
+<!--            font-size: 1.5rem;-->
+<!--            margin-bottom: 30px;-->
+<!--            opacity: 0.9;-->
+<!--        }-->
+
+<!--        .cta-button {-->
+<!--            display: inline-block;-->
+<!--            padding: 15px 40px;-->
+<!--            background: linear-gradient(45deg, #FF6B6B, #FF8E53);-->
+<!--            color: white;-->
+<!--            text-decoration: none;-->
+<!--            border-radius: 50px;-->
+<!--            font-weight: bold;-->
+<!--            font-size: 1.1rem;-->
+<!--            transition: all 0.3s ease;-->
+<!--            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);-->
+<!--        }-->
+
+<!--        .cta-button:hover {-->
+<!--            transform: translateY(-3px);-->
+<!--            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);-->
+<!--        }-->
+
+<!--        /* Features Section */-->
+<!--        .features {-->
+<!--            padding: 80px 0;-->
+<!--            background: white;-->
+<!--        }-->
+
+<!--        .features__grid {-->
+<!--            display: grid;-->
+<!--            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));-->
+<!--            gap: 30px;-->
+<!--            margin-top: 50px;-->
+<!--        }-->
+
+<!--        .feature-card {-->
+<!--            background: white;-->
+<!--            padding: 40px 30px;-->
+<!--            border-radius: 20px;-->
+<!--            text-align: center;-->
+<!--            box-shadow: 0 10px 30px rgba(0,0,0,0.1);-->
+<!--            transition: transform 0.3s ease;-->
+<!--        }-->
+
+<!--        .feature-card:hover {-->
+<!--            transform: translateY(-10px);-->
+<!--        }-->
+
+<!--        .feature-icon {-->
+<!--            font-size: 3rem;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+
+<!--        /* Animations */-->
+<!--        @keyframes fadeInUp {-->
+<!--            from {-->
+<!--                opacity: 0;-->
+<!--                transform: translateY(30px);-->
+<!--            }-->
+<!--            to {-->
+<!--                opacity: 1;-->
+<!--                transform: translateY(0);-->
+<!--            }-->
+<!--        }-->
+
+<!--        /* Responsive */-->
+<!--        @media (max-width: 768px) {-->
+<!--            .nav {-->
+<!--                flex-direction: column;-->
+<!--                gap: 20px;-->
+<!--            }-->
+
+<!--            .nav__list {-->
+<!--                flex-direction: column;-->
+<!--                gap: 15px;-->
+<!--            }-->
+
+<!--            .header__content-name {-->
+<!--                font-size: 2.5rem;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <header class="header">-->
+<!--        <div class="container">-->
+<!--            <div class="header__top">-->
+<!--                <nav class="nav">-->
+<!--                    <ul class="nav__list">-->
+<!--                        <li class="nav__list-info">-->
+<!--                            <a href="{% url 'promotions' %}" style="color: inherit; text-decoration: none;">🎉 Акции</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav__list-info">-->
+<!--                            📰 Новости-->
+<!--                        </li>-->
+<!--                        <li class="nav__list-info">-->
+<!--                            🚚 Доставка-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                    <div class="nav__telephone">-->
+<!--                        <img src="https://memi.klev.club/uploads/posts/2024-04/memi-klev-club-054l-p-memi-kot-shaurma-22.jpg" alt="phone logo">-->
+<!--                        <span>📞 +375 44 552-98-51</span>-->
+<!--                    </div>-->
+<!--                </nav>-->
+<!--            </div>-->
+<!--            <div class="header__content">-->
+<!--                <div class="header__content-desc">-->
+<!--                    <div class="header__content-name">-->
+<!--                        Донер Амир-->
+<!--                    </div>-->
+<!--                    <div class="header__content-slogan">-->
+<!--                        Вкус, который заставляет возвращаться снова и снова!-->
+<!--                    </div>-->
+<!--                    <a href="{% url 'menu' %}" class="cta-button">Посмотреть меню</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </header>-->
+
+<!--    <section class="features">-->
+<!--        <div class="container">-->
+<!--            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 20px;">Почему выбирают нас?</h2>-->
+<!--            <div class="features__grid">-->
+<!--                <div class="feature-card">-->
+<!--                    <div class="feature-icon">🍴</div>-->
+<!--                    <h3>Свежие ингредиенты</h3>-->
+<!--                    <p>Только свежие продукты и качественное мясо</p>-->
+<!--                </div>-->
+<!--                <div class="feature-card">-->
+<!--                    <div class="feature-icon">⚡</div>-->
+<!--                    <h3>Быстрая доставка</h3>-->
+<!--                    <p>Доставляем за 30 минут или дарим скидку</p>-->
+<!--                </div>-->
+<!--                <div class="feature-card">-->
+<!--                    <div class="feature-icon">💰</div>-->
+<!--                    <h3>Выгодные цены</h3>-->
+<!--                    <p>Лучшее соотношение цены и качества</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Донер Амир - Главная страница</title>
+    <title>Ресторан - Главная страница</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #f8f8f8;
             color: #333;
             line-height: 1.6;
         }
@@ -24,237 +286,700 @@
             padding: 0 20px;
         }
 
-        /* Header Styles */
-        .header {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                        url('https://avatars.mds.yandex.net/get-altay/5498343/2a0000017e791b34a8d73ece9ad498a7e471/XXXL');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 20px 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        /* Шапка */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        /* Navigation */
-        .nav {
+        .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
         }
 
-        .nav__list {
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #d32f2f;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #333;
+        }
+
+        .nav-main ul {
             display: flex;
             list-style: none;
-            gap: 40px;
         }
 
-        .nav__list-info {
-            padding: 12px 24px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
+        .nav-main li {
+            margin-left: 25px;
         }
 
-        .nav__list-info:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .nav__list-info.active {
-            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-        }
-
-        .nav__telephone {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(255,255,255,0.1);
-            padding: 12px 20px;
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
-        }
-
-        .nav__telephone img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        /* Header Content */
-        .header__content {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .header__content-desc {
-            animation: fadeInUp 1s ease;
-        }
-
-        .header__content-name {
-            font-size: 4.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #FF6B6B, #FF8E53, #4ECDC4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .header__content-slogan {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
-            color: white;
+        .nav-main a {
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
         }
 
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        .nav-main a:hover {
+            color: #d32f2f;
         }
 
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: white;
+        .nav-main .contacts-dropdown {
+            position: relative;
         }
 
-        .features__grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+        .nav-main .contacts-dropdown::after {
+            content: '▼';
+            font-size: 10px;
+            margin-left: 5px;
+            color: #888;
         }
 
-        .feature-card {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 20px;
+        .header-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .nav-categories ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-categories li {
+            margin-right: 25px;
+        }
+
+        .nav-categories a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-categories a:hover {
+            color: #d32f2f;
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .address {
+            margin-right: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .cart {
+            display: flex;
+            align-items: center;
+            background-color: #d32f2f;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cart:hover {
+            background-color: #b71c1c;
+        }
+
+        .cart i {
+            margin-right: 8px;
+        }
+
+        /* Основной контент */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            margin-bottom: 40px;
         }
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
+        .hero h1 {
+            font-size: 48px;
             margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #d32f2f;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #b71c1c;
+        }
+
+        .popular-dishes {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #d32f2f;
+        }
+
+        .dishes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .dish-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .dish-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .dish-image {
+            height: 200px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .dish-info {
+            padding: 20px;
+        }
+
+        .dish-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .dish-description {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .dish-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dish-price {
+            font-weight: 700;
+            font-size: 20px;
+            color: #d32f2f;
+        }
+
+        .add-to-cart {
+            background-color: #f5f5f5;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #333;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        /* Секции меню */
+        .menu-categories {
+            margin-bottom: 60px;
+        }
+
+        .categories-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .category-tab {
+            padding: 10px 20px;
+            margin: 0 5px 10px;
+            background-color: #f5f5f5;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .category-tab.active {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        /* Футер */
+        footer {
+            background-color: #222;
+            color: #ddd;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #d32f2f;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #d32f2f;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .nav-main ul {
+                display: none;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .header-bottom {
+                flex-wrap: wrap;
+            }
+
+            .nav-categories {
+                order: 3;
+                width: 100%;
+                margin-top: 15px;
+            }
+
+            .nav-categories ul {
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+
+            .nav-categories li {
+                margin-right: 10px;
+                margin-bottom: 10px;
             }
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .nav {
-                flex-direction: column;
-                gap: 20px;
+            .hero h1 {
+                font-size: 36px;
             }
 
-            .nav__list {
-                flex-direction: column;
-                gap: 15px;
+            .hero p {
+                font-size: 16px;
             }
 
-            .header__content-name {
-                font-size: 2.5rem;
+            .header-info {
+                flex-direction: column;
+                align-items: flex-start;
             }
+
+            .address {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 60px 0;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .dishes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <header class="header">
+    <!-- Шапка -->
+    <header>
         <div class="container">
-            <div class="header__top">
-                <nav class="nav">
-                    <ul class="nav__list">
-                        <li class="nav__list-info">
-                            <a href="{% url 'promotions' %}" style="color: inherit; text-decoration: none;">🎉 Акции</a>
-                        </li>
-                        <li class="nav__list-info">
-                            📰 Новости
-                        </li>
-                        <li class="nav__list-info">
-                            🚚 Доставка
-                        </li>
+            <div class="header-top">
+                <a href="#" class="logo">Донер<span>Амир</span></a>
+                <nav class="nav-main">
+                    <ul>
+                        <li><a href="#">Меню</a></li>
+                        <li><a href="#">Отзывы</a></li>
+                        <li><a href="#">Наше заведение</a></li>
+                        <li class="contacts-dropdown"><a href="#">Контакты</a></li>
                     </ul>
-                    <div class="nav__telephone">
-                        <img src="https://memi.klev.club/uploads/posts/2024-04/memi-klev-club-054l-p-memi-kot-shaurma-22.jpg" alt="phone logo">
-                        <span>📞 +375 44 552-98-51</span>
-                    </div>
                 </nav>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
-            <div class="header__content">
-                <div class="header__content-desc">
-                    <div class="header__content-name">
-                        Донер Амир
+
+            <div class="header-bottom">
+                <nav class="nav-categories">
+                    <ul>
+                        <li><a href="#">Дочери</a></li>
+                        <li><a href="#">Закуски</a></li>
+                        <li><a href="#">Боксы</a></li>
+                        <li><a href="#">Напитки</a></li>
+                        <li><a href="#">От шефа</a></li>
+                        <li><a href="#">Акции</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-info">
+                    <div class="address">
+                        <i class="fas fa-map-marker-alt"></i> г. Минск, ул. Леонида Беды 45
                     </div>
-                    <div class="header__content-slogan">
-                        Вкус, который заставляет возвращаться снова и снова!
+                    <div class="cart">
+                        <i class="fas fa-shopping-cart"></i> Корзина 0.00 руб.
                     </div>
-                    <a href="{% url 'menu' %}" class="cta-button">Посмотреть меню</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <section class="features">
-        <div class="container">
-            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 20px;">Почему выбирают нас?</h2>
-            <div class="features__grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🍴</div>
-                    <h3>Свежие ингредиенты</h3>
-                    <p>Только свежие продукты и качественное мясо</p>
+    <!-- Основной контент -->
+    <main>
+        <!-- Герой-секция -->
+        <section class="hero">
+            <div class="container">
+                <h1>Популярные блюда</h1>
+                <p>Откройте для себя наши самые востребованные кулинарные шедевры, приготовленные с любовью и использованием только самых свежих ингредиентов.</p>
+                <a href="#popular-dishes" class="btn">Смотреть меню</a>
+            </div>
+        </section>
+
+        <!-- Популярные блюда -->
+        <section class="popular-dishes container" id="popular-dishes">
+            <h2 class="section-title">Популярные блюда</h2>
+            <div class="dishes-grid">
+                <!-- Блюдо 1 -->
+                <div class="dish-card">
+                    <div class="dish-image" style="background-image: url('https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1065&q=80');"></div>
+                    <div class="dish-info">
+                        <h3 class="dish-title">Стейк Рибай</h3>
+                        <p class="dish-description">Нежнейший стейк с овощами гриль и фирменным соусом. Идеально прожаренный по вашим предпочтениям.</p>
+                        <div class="dish-footer">
+                            <div class="dish-price">28.50 руб.</div>
+                            <button class="add-to-cart">В корзину</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Быстрая доставка</h3>
-                    <p>Доставляем за 30 минут или дарим скидку</p>
+
+                <!-- Блюдо 2 -->
+                <div class="dish-card">
+                    <div class="dish-image" style="background-image: url('https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');"></div>
+                    <div class="dish-info">
+                        <h3 class="dish-title">Паста Карбонара</h3>
+                        <p class="dish-description">Классическая итальянская паста с беконом, сливочным соусом и пармезаном.</p>
+                        <div class="dish-footer">
+                            <div class="dish-price">18.90 руб.</div>
+                            <button class="add-to-cart">В корзину</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💰</div>
-                    <h3>Выгодные цены</h3>
-                    <p>Лучшее соотношение цены и качества</p>
+
+                <!-- Блюдо 3 -->
+                <div class="dish-card">
+                    <div class="dish-image" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1081&q=80');"></div>
+                    <div class="dish-info">
+                        <h3 class="dish-title">Пицца Маргарита</h3>
+                        <p class="dish-description">Тонкое тесто, томатный соус, сыр моцарелла и свежий базилик. Итальянская классика.</p>
+                        <div class="dish-footer">
+                            <div class="dish-price">22.50 руб.</div>
+                            <button class="add-to-cart">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Блюдо 4 -->
+                <div class="dish-card">
+                    <div class="dish-image" style="background-image: url('https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');"></div>
+                    <div class="dish-info">
+                        <h3 class="dish-title">Салат Цезарь</h3>
+                        <p class="dish-description">Свежий салат с курицей гриль, крутонами, пармезаном и фирменным соусом Цезарь.</p>
+                        <div class="dish-footer">
+                            <div class="dish-price">15.75 руб.</div>
+                            <button class="add-to-cart">В корзину</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
+
+        <!-- Категории меню -->
+        <section class="menu-categories container">
+            <h2 class="section-title">Категории меню</h2>
+            <div class="categories-tabs">
+                <div class="category-tab active">Все</div>
+                <div class="category-tab">Донеры</div>
+                <div class="category-tab">Закуски</div>
+                <div class="category-tab">Боксы</div>
+                <div class="category-tab">Напитки</div>
+                <div class="category-tab">От шефа</div>
+                <div class="category-tab">Акции</div>
+            </div>
+
+            <div class="dishes-grid">
+                <!-- Примеры блюд из других категорий -->
+                <div class="dish-card">
+                    <div class="dish-image" style="background-image: url('https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');"></div>
+                    <div class="dish-info">
+                        <h3 class="dish-title">Бургер с говядиной</h3>
+                        <p class="dish-description">Сочная говяжья котлета, свежие овощи и фирменный соус в булочке бриошь.</p>
+                        <div class="dish-footer">
+                            <div class="dish-price">16.80 руб.</div>
+                            <button class="add-to-cart">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dish-card">
+                    <div class="dish-image" style="background-image: url('https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');"></div>
+                    <div class="dish-info">
+                        <h3 class="dish-title">Суп Том Ям</h3>
+                        <p class="dish-description">Традиционный тайский суп с креветками, грибами и кокосовым молоком.</p>
+                        <div class="dish-footer">
+                            <div class="dish-price">14.90 руб.</div>
+                            <button class="add-to-cart">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dish-card">
+                    <div class="dish-image" style="background-image: url('https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1065&q=80');"></div>
+                    <div class="dish-info">
+                        <h3 class="dish-title">Лосось на гриле</h3>
+                        <p class="dish-description">Филе лосося с лимонным соусом и гарниром из сезонных овощей.</p>
+                        <div class="dish-footer">
+                            <div class="dish-price">24.50 руб.</div>
+                            <button class="add-to-cart">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dish-card">
+                    <div class="dish-image" style="background-image: url('https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');"></div>
+                    <div class="dish-info">
+                        <h3 class="dish-title">Десерт Тирамису</h3>
+                        <p class="dish-description">Классический итальянский десерт с кофейной пропиткой и кремом маскарпоне.</p>
+                        <div class="dish-footer">
+                            <div class="dish-price">12.50 руб.</div>
+                            <button class="add-to-cart">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Ресторан "Вкус"</h3>
+                    <p>Мы предлагаем блюда европейской и белорусской кухни, приготовленные из свежих местных продуктов. Наш ресторан — это место, где встречаются вкус и уют.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Меню</h3>
+                    <ul>
+                        <li><a href="#">Дочери</a></li>
+                        <li><a href="#">Закуски</a></li>
+                        <li><a href="#">Боксы</a></li>
+                        <li><a href="#">Напитки</a></li>
+                        <li><a href="#">От шефа</a></li>
+                        <li><a href="#">Акции</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Минск, ул. Леонида Беды 45</li>
+                        <li><i class="fas fa-phone"></i> +375 (29) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@restaurant-vkus.by</li>
+                        <li><i class="fas fa-clock"></i> Пн-Вс: 10:00 - 23:00</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2023 Ресторан "Вкус". Все права защищены.</p>
+            </div>
         </div>
-    </section>
+    </footer>
+
+    <script>
+        // Взаимодействие с корзиной
+        const cartButtons = document.querySelectorAll('.add-to-cart');
+        const cartElement = document.querySelector('.cart');
+        let cartTotal = 0;
+        let cartCount = 0;
+
+        cartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Находим цену товара
+                const priceElement = this.closest('.dish-footer').querySelector('.dish-price');
+                const priceText = priceElement.textContent;
+                const price = parseFloat(priceText.replace('руб.', '').trim());
+
+                // Обновляем корзину
+                cartTotal += price;
+                cartCount += 1;
+
+                // Форматируем сумму с двумя десятичными знаками
+                const formattedTotal = cartTotal.toFixed(2);
+
+                // Обновляем отображение корзины
+                cartElement.innerHTML = `<i class="fas fa-shopping-cart"></i> Корзина ${formattedTotal} руб.`;
+
+                // Анимация кнопки
+                this.textContent = 'Добавлено!';
+                this.style.backgroundColor = '#4CAF50';
+
+                setTimeout(() => {
+                    this.textContent = 'В корзину';
+                    this.style.backgroundColor = '';
+                }, 1500);
+            });
+        });
+
+        // Переключение категорий меню
+        const categoryTabs = document.querySelectorAll('.category-tab');
+
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Убираем активный класс у всех вкладок
+                categoryTabs.forEach(t => t.classList.remove('active'));
+
+                // Добавляем активный класс текущей вкладке
+                this.classList.add('active');
+
+                // Здесь можно добавить код для фильтрации блюд по категориям
+            });
+        });
+
+        // Мобильное меню
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMain = document.querySelector('.nav-main ul');
+
+        menuToggle.addEventListener('click', function() {
+            navMain.style.display = navMain.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Адаптивное меню при изменении размера окна
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                navMain.style.display = 'flex';
+            } else {
+                navMain.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
