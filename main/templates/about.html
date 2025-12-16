@@ -1,0 +1,518 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас - Донер Амир</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Дополнительные стили для страницы "О нас" */
+        .about-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('png/doner amir vhod.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+            border-radius: 15px;
+            margin-bottom: 60px;
+        }
+
+        .about-hero h1 {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .about-hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .about-text h2 {
+            color: #ff3b30;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        .about-text p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .about-info {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #ff3b30;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .info-content h3 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .info-content p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .why-choose {
+            margin: 60px 0;
+        }
+
+        .why-choose h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ff6b6b, #ff3b30);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 25px;
+        }
+
+        .feature-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .gallery-section {
+            margin: 60px 0;
+        }
+
+        .gallery-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .map-section {
+            margin: 60px 0;
+        }
+
+        .map-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .map-placeholder {
+            background-color: #f5f5f7;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .team-section {
+            margin: 60px 0;
+        }
+
+        .team-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .team-member h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .team-member p {
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <span>Донер Амир</span>
+                </div>
+                <nav class="main-nav">
+                    <a href="index.html">Меню</a>
+                    <a href="reviews.html">Отзывы</a>
+                    <a href="about.html" class="active">Наше заведение</a>
+                    <div class="dropdown">
+                        <a href="#">Контакты <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <p><i class="fas fa-map-marker-alt"></i> г. Минск, ул. Леонида Беды 45</p>
+                            <p><i class="fas fa-phone"></i> +375 (44) 552-98-51</p>
+                            <p><i class="fab fa-instagram"></i> @doneramir</p>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="header-bottom">
+                <nav class="categories-nav">
+                    <a href="menu.html">Донеры</a>
+                    <a href="menu.html#snacks">Закуски</a>
+                    <a href="menu.html#boxes">Боксы</a>
+                    <a href="menu.html#drinks">Напитки</a>
+                    <a href="menu.html#chef">От шефа</a>
+                    <a href="menu.html#promo">Акции</a>
+                </nav>
+
+                <div class="header-info">
+                    <div class="address">
+                        <i class="fas fa-map-marker-alt"></i> г. Минск, ул. Леонида Беды 45
+                    </div>
+                    <a href="cart.html" class="cart-link">
+                        <div class="cart">
+                            <i class="fas fa-shopping-cart"></i> Корзина <span class="cart-total">0.00</span> руб.
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <div class="container">
+            <section class="about-hero">
+                <h1>ДОНЕР АМИР</h1>
+                <p>Ваша любимая шаурманная в Минске</p>
+                <p>Здесь каждый найдет свою идеальную порцию вкусной и свежей шаурмы</p>
+            </section>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>О НАС</h2>
+                    <p>Мы — ваша любимая шаурманная! Здесь каждый найдет свою идеальную порцию вкусной и свежей шаурмы.</p>
+                    <p>Мы гордимся качеством продуктов, быстрым обслуживанием и уютной атмосферой. Для нас важно, чтобы каждый клиент уходил с улыбкой и хорошим настроением.</p>
+                    <p>Приходите к нам перекусить - вкусно, быстро и по-домашнему!</p>
+                    <p>Наша миссия — предоставлять вкусную, качественную и доступную еду в дружелюбной атмосфере. Мы используем только свежие ингредиенты и готовим каждое блюдо с заботой о наших клиентах.</p>
+                </div>
+
+                <div class="about-info">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Адрес</h3>
+                            <p>г. Минск, ул. Леонида Беды, 45</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Телефон</h3>
+                            <p>+375 (44) 552-98-51</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Время работы</h3>
+                            <p>Пн-Пт: с 10:00 до 22:30<br>Сб-Вс: с 11:00 до 23:00</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Кухня</h3>
+                            <p>Турецкая, ближневосточная, фаст-фуд</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="why-choose">
+                <h2>ПОЧЕМУ МЫ?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-broom"></i>
+                        </div>
+                        <h3>Чистота и гигиена</h3>
+                        <p>У нас всё чисто и аккуратно! Мы следим за порядком, чтобы вам было приятно и безопасно есть у нас. Свежие продукты и улыбки — всё для вашего комфорта и здоровья!</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Быстрое обслуживание</h3>
+                        <p>Мы знаем, что вы голодны и не хотите ждать! Поэтому наша команда работает быстро и слаженно, чтобы вы уже через пару минут наслаждались вкусной шаурмой даже в самый загруженный час.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Свежие продукты</h3>
+                        <p>Мы используем только свежие овощи, качественное мясо и домашние соусы. Каждое блюдо готовится по заказу, поэтому вы получаете максимально свежую и вкусную еду.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="gallery-section">
+                <h2>НАША ГАЛЕРЕЯ</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1626700051175-6818013e1d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w-800&q=80');"></div>
+                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                </div>
+            </section>
+
+            <section class="map-section">
+                <h2>КАК НАС НАЙТИ</h2>
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <div>
+                            <i class="fas fa-map-marker-alt" style="font-size: 50px; margin-bottom: 20px; color: #ff3b30;"></i>
+                            <p>г. Минск, ул. Леонида Беды, 45</p>
+                            <p style="margin-top: 10px; font-size: 14px;">(Здесь будет карта)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="team-section">
+                <h2>НАША КОМАНДА</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-photo" style="background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');"></div>
+                        <h3>Амир</h3>
+                        <p>Основатель и шеф-повар</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo" style="background-image: url('https://images.unsplash.com/photo-1583394293214-28ded15ee548?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');"></div>
+                        <h3>Мария</h3>
+                        <p>Менеджер заведения</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo" style="background-image: url('https://images.unsplash.com/photo-1595475038784-bbe439ff41e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');"></div>
+                        <h3>Алексей</h3>
+                        <p>Повар</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="member-photo" style="background-image: url('https://images.unsplash.com/photo-1583195648371-6d3d3b7d5cc8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');"></div>
+                        <h3>Ольга</h3>
+                        <p>Кассир</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><i class="fab fa-instagram"></i> @doneramiritg</p>
+                    <p><i class="fas fa-phone"></i> +375 (44) 552-98-51</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Меню</h3>
+                    <ul>
+                        <li><a href="menu.html">Донеры</a></li>
+                        <li><a href="menu.html#snacks">Закуски</a></li>
+                        <li><a href="menu.html#drinks">Напитки</a></li>
+                        <li><a href="menu.html#boxes">Боксы</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Принимаем к оплате</h3>
+                    <div class="payment-icons">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Донер Амир 2025</p>
+                <p><a href="#">Правовая информация</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Активная ссылка в меню
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname;
+            const navLinks = document.querySelectorAll('.main-nav a');
+
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage.split('/').pop()) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Имитация галереи
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    alert('Здесь будет увеличенное изображение');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

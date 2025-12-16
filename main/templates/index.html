@@ -1,0 +1,186 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Донер Амир - Главная</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <span>Донер Амир</span>
+                </div>
+                <nav class="main-nav">
+                    <a href="index.html">Меню</a>
+                    <a href="reviews.html">Отзывы</a>
+                    <a href="about.html">Наше заведение</a>
+                    <div class="dropdown">
+                        <a href="#">Контакты <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <p><i class="fas fa-map-marker-alt"></i> г. Минск, ул. Леонида Беды 45</p>
+                            <p><i class="fas fa-phone"></i> +375 (44) 552-98-51</p>
+                            <p><i class="fab fa-instagram"></i> @doneramiritg</p>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="header-bottom">
+                <nav class="categories-nav">
+                    <a href="menu.html">Донеры</a>
+                    <a href="menu.html#snacks">Закуски</a>
+                    <a href="menu.html#boxes">Боксы</a>
+                    <a href="menu.html#drinks">Напитки</a>
+                    <a href="menu.html#chef">От шефа</a>
+                    <a href="menu.html#promo">Акции</a>
+                </nav>
+
+                <div class="header-info">
+                    <div class="address">
+                        <i class="fas fa-map-marker-alt"></i> г. Минск, ул. Леонида Беды 45
+                    </div>
+                    <a href="cart.html" class="cart-link">
+                        <div class="cart">
+                            <i class="fas fa-shopping-cart"></i> Корзина <span class="cart-total">0.00</span> руб.
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <div class="container">
+            <section class="popular-dishes">
+                <h1>Популярные блюда</h1>
+                <div class="dishes-grid">
+                    <div class="dish-card">
+                        <div class="dish-image" style="background-image: url('https://images.unsplash.com/photo-1626700051175-6818013e1d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+                        <div class="dish-info">
+                            <h3>Донер с курицей</h3>
+                            <p>Сочная курица, свежие овощи и ароматные специи в мягкой лепешке.</p>
+                            <div class="dish-footer">
+                                <div class="dish-price">16.50 руб.</div>
+                                <button class="add-to-cart" data-name="Донер с курицей" data-price="16.50">В корзину</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dish-card">
+                        <div class="dish-image" style="background-image: url('https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+                        <div class="dish-info">
+                            <h3>Донер с говядиной</h3>
+                            <p>Нежная говядина, маринованные овощи и фирменный соус.</p>
+                            <div class="dish-footer">
+                                <div class="dish-price">18.50 руб.</div>
+                                <button class="add-to-cart" data-name="Донер с говядиной" data-price="18.50">В корзину</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dish-card">
+                        <div class="dish-image" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+                        <div class="dish-info">
+                            <h3>Пицца Шаурма</h3>
+                            <p>Тонкое тесто с начинкой из курицы, овощей и сыра.</p>
+                            <div class="dish-footer">
+                                <div class="dish-price">22.50 руб.</div>
+                                <button class="add-to-cart" data-name="Пицца Шаурма" data-price="22.50">В корзину</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dish-card">
+                        <div class="dish-image" style="background-image: url('https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+                        <div class="dish-info">
+                            <h3>Бокс Донер</h3>
+                            <p>Лаваш, курица, капуста, помидоры, огурцы, картошка фри, 5 соусов.</p>
+                            <div class="dish-footer">
+                                <div class="dish-price">15.00 руб.</div>
+                                <button class="add-to-cart" data-name="Бокс Донер" data-price="15.00">В корзину</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="why-us">
+                <h2>Почему выбирают нас?</h2>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-star"></i>
+                        <h3>Лучшая шаурма в Минске</h3>
+                        <p>По отзывам наших клиентов</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Быстрое обслуживание</h3>
+                        <p>Даже в самый загруженный час</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Свежие продукты</h3>
+                        <p>Готовим только из качественных ингредиентов</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><i class="fab fa-instagram"></i> @doneramiritg</p>
+                    <p><i class="fas fa-phone"></i> +375 (44) 552-98-51</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Меню</h3>
+                    <ul>
+                        <li><a href="menu.html">Донеры</a></li>
+                        <li><a href="menu.html#snacks">Закуски</a></li>
+                        <li><a href="menu.html#drinks">Напитки</a></li>
+                        <li><a href="menu.html#boxes">Боксы</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Принимаем к оплате</h3>
+                    <div class="payment-icons">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Донер Амир 2025</p>
+                <p><a href="#">Правовая информация</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
