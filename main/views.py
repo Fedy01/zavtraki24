@@ -1,40 +1,33 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.views import View
-
 from .models import MenuItem, Order, OrderItem, OrderComment
 from .forms import OrderForm
 from .decorators import manager_required, courier_required
-
 from .utils import notify_new_order
 from .decorators import kitchen_required
-
-
-
-
-# from django.views.decorators.csrf import csrf_exempt
-# from django.http import JsonResponse
-# from django.views.decorators.http import require_POST
-# import json
-# import hashlib
-# import hmac
-# from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from .models import QuickRestoOrder
 from garbage.tasks import sync_orders_with_quickresto
 import json
 import hashlib
 import hmac
-from django.conf import settings
 from django.utils import timezone
+from django.http import JsonResponse
+from django.conf import settings
 
-
+QR_STATUS_MAP = {
+    'NEW': 'new',
+    'CONFIRMED': 'confirmed',
+    'COOKING': 'cooking',
+    'READY': 'ready',
+    'DONE': 'completed',
+    'CANCELLED': 'cancelled',
+}
 
 CART_SESSION_ID = "cart"
 
@@ -56,14 +49,14 @@ def _save_cart(request, cart):
 # ─────────────────────────────────────
 
 def home(request):
-    return render(request, "main/home.html")
+    return render(request, "main/")
 
 def menu(request):
     items = MenuItem.objects.all()
-    return render(request, "main/menu.html", {"items": items})
+    return render(request, "main/", {"items": items})
 
 def promotions(request):
-    return render(request, "main/promotions.html")
+    return render(request, "main/")
 
 
 # ─────────────────────────────────────
@@ -101,7 +94,7 @@ def view_cart(request):
         items.append({"item": mi, "qty": qty, "sum": mi.price * qty})
         total += mi.price * qty
 
-    return render(request, "main/cart.html", {
+    return render(request, "main/", {
         "cart_items": items,
         "total": total
     })
@@ -147,7 +140,7 @@ def make_order(request):
             except Exception as e:
                 print("Telegram notify failed:", e)
 
-            return render(request, "main/order_success.html", {"order": order})
+            return render(request, "main/", {"order": order})
 
     else:
         form = OrderForm()
@@ -161,7 +154,7 @@ def make_order(request):
             items.append({"item": mi, "qty": qty, "sum": mi.price * qty})
             total += mi.price * qty
 
-    return render(request, "main/make_order.html", {
+    return render(request, "main/", {
         "form": form,
         "cart_items": items,
         "total": total
@@ -175,7 +168,7 @@ def make_order(request):
 @login_required
 def order_history(request):
     orders = Order.objects.filter(user=request.user).order_by("-created_at")
-    return render(request, "main/order_history.html", {"orders": orders})
+    return render(request, "main/", {"orders": orders})
 
 
 # ─────────────────────────────────────
@@ -185,7 +178,7 @@ def order_history(request):
 @manager_required
 def manager_orders(request):
     orders = Order.objects.all().order_by("-created_at")
-    return render(request, "main/manager_orders.html", {"orders": orders})
+    return render(request, "main/", {"orders": orders})
 
 
 @manager_required
@@ -202,7 +195,7 @@ def update_order_status(request, order_id):
 
         return redirect("manager_orders")
 
-    return render(request, "main/update_order_status.html", {
+    return render(request, "main/", {
         "order": order,
         "statuses": Order.STATUS_CHOICES,
     })
@@ -218,7 +211,7 @@ def assign_courier(request, order_id):
         order.save()
         return redirect("manager_orders")
 
-    return render(request, "main/assign_courier.html", {
+    return render(request, "main/", {
         "order": order,
         "couriers": couriers
     })
@@ -231,7 +224,7 @@ def assign_courier(request, order_id):
 @courier_required
 def courier_orders(request):
     orders = Order.objects.filter(courier=request.user).order_by("-created_at")
-    return render(request, "main/courier_orders.html", {"orders": orders})
+    return render(request, "main/", {"orders": orders})
 
 
 @courier_required
@@ -250,7 +243,7 @@ def courier_update_order(request, order_id):
 @kitchen_required
 def kitchen_orders(request):
     orders = Order.objects.filter(status__in=["NEW", "COOKING"]).order_by("created_at")
-    return render(request, "main/kitchen_orders.html", {"orders": orders})
+    return render(request, "main/", {"orders": orders})
 
 @kitchen_required
 def kitchen_set_cooking(request, order_id):
@@ -300,7 +293,7 @@ def quickresto_webhook(request):
 
 # views.py - Dashboard для отслеживания заказов
 class OrderDashboardView(LoginRequiredMixin, TemplateView):
-    template_name = 'orders/dashboard.html'
+    template_name = 'orders/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -342,247 +335,106 @@ class AddOrderCommentView(LoginRequiredMixin, View):
 @csrf_exempt
 @require_POST
 def quickresto_webhook(request):
-    """Обработка вебхуков от QuickResto"""
+    """Webhook от QuickResto"""
     try:
-        # Получаем подпись из заголовков
         signature = request.headers.get('X-QuickResto-Signature')
-
         if not signature:
             return JsonResponse({'error': 'Missing signature'}, status=400)
 
-        # Проверяем подпись
         body = request.body.decode('utf-8')
         expected_signature = hmac.new(
-            settings.QUICKRESTO_API_SECRET.encode('utf-8'),
-            body.encode('utf-8'),
+            settings.QUICKRESTO_API_SECRET.encode(),
+            body.encode(),
             hashlib.sha256
         ).hexdigest()
 
         if signature != expected_signature:
             return JsonResponse({'error': 'Invalid signature'}, status=403)
 
-        data = json.loads(body)
-        event_type = data.get('event')
-        order_data = data.get('data', {})
+        payload = json.loads(body)
+        event = payload.get('event')
+        order_data = payload.get('data', {})
 
-        # Обработка различных событий
-        if event_type == 'order.created':
-            return handle_new_order(order_data)
-        elif event_type == 'order.updated':
-            return handle_order_update(order_data)
-        elif event_type == 'order.status_changed':
-            return handle_order_status_change(order_data)
-        else:
-            # Неизвестное событие, просто подтверждаем получение
-            return JsonResponse({'status': 'received'})
+        if event in ('order.created', 'order.updated'):
+            return upsert_quickresto_order(order_data)
+
+        if event == 'order.status_changed':
+            return update_quickresto_status(order_data)
+
+        return JsonResponse({'status': 'ignored'})
 
     except json.JSONDecodeError:
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-
-def handle_new_order(order_data):
-    """Обработка нового заказа"""
-    try:
+def upsert_quickresto_order(order_data):
         order_id = order_data.get('id')
-
         if not order_id:
             return JsonResponse({'error': 'Missing order ID'}, status=400)
 
-        # Создаем или обновляем заказ в базе данных
+        status = QR_STATUS_MAP.get(order_data.get('status'), 'new')
+
         order, created = QuickRestoOrder.objects.update_or_create(
-            quickresto_id=order_id,
+            quickresto_id=str(order_id),
             defaults={
                 'order_number': order_data.get('number', ''),
                 'table_name': order_data.get('tableName', ''),
                 'customer_name': order_data.get('customerName', ''),
                 'customer_phone': order_data.get('customerPhone', ''),
                 'total_amount': order_data.get('totalAmount', 0),
-                'status': order_data.get('status', 'new'),
-                'created_at': timezone.now(),
-                'quickresto_data': order_data
+                'status': status,
+                'quickresto_data': order_data,
+                'created_at': order_data.get('createdAt', timezone.now()),
             }
         )
 
-        action = 'created' if created else 'updated'
         return JsonResponse({
             'status': 'success',
-            'message': f'Order {action} successfully',
-            'order_id': str(order.id),
+            'created': created,
             'quickresto_id': order.quickresto_id
         })
 
-    except Exception as e:
-        return JsonResponse({'error': f'Failed to process order: {str(e)}'}, status=500)
-
-
-def handle_order_update(order_data):
-    """Обработка обновления заказа"""
-    try:
-        order_id = order_data.get('id')
-
-        if not order_id:
-            return JsonResponse({'error': 'Missing order ID'}, status=400)
-
-        # Обновляем заказ в базе данных
-        order, created = QuickRestoOrder.objects.update_or_create(
-            quickresto_id=order_id,
-            defaults={
-                'order_number': order_data.get('number', ''),
-                'table_name': order_data.get('tableName', ''),
-                'customer_name': order_data.get('customerName', ''),
-                'customer_phone': order_data.get('customerPhone', ''),
-                'total_amount': order_data.get('totalAmount', 0),
-                'status': order_data.get('status', 'new'),
-                'created_at': timezone.now(),
-                'quickresto_data': order_data
-            }
-        )
-
-        action = 'created' if created else 'updated'
-        return JsonResponse({
-            'status': 'success',
-            'message': f'Order {action} successfully',
-            'order_id': str(order.id),
-            'quickresto_id': order.quickresto_id
-        })
-
-    except Exception as e:
-        return JsonResponse({'error': f'Failed to update order: {str(e)}'}, status=500)
-
-
-def handle_order_status_change(order_data):
-    """Обработка изменения статуса заказа"""
-    try:
+def update_quickresto_status(order_data):
         order_id = order_data.get('id')
         new_status = order_data.get('status')
 
-        if not order_id:
-            return JsonResponse({'error': 'Missing order ID'}, status=400)
-        if not new_status:
-            return JsonResponse({'error': 'Missing new status'}, status=400)
+        if not order_id or not new_status:
+            return JsonResponse({'error': 'Invalid data'}, status=400)
 
-        # Находим заказ и обновляем статус
+        status = QR_STATUS_MAP.get(new_status, 'new')
+
         try:
-            order = QuickRestoOrder.objects.get(quickresto_id=order_id)
-            old_status = order.status
-            order.status = new_status
+            order = QuickRestoOrder.objects.get(quickresto_id=str(order_id))
+            order.status = status
             order.save(update_fields=['status'])
 
-            # Можно добавить логирование изменения статуса
-            print(f"Order {order_id}: status changed from {old_status} to {new_status}")
-
-            return JsonResponse({
-                'status': 'success',
-                'message': 'Order status updated successfully',
-                'order_id': str(order.id),
-                'quickresto_id': order.quickresto_id,
-                'old_status': old_status,
-                'new_status': new_status
-            })
+            return JsonResponse({'status': 'success'})
 
         except QuickRestoOrder.DoesNotExist:
-            # Если заказа нет в базе, создаем его
-            return handle_new_order(order_data)
+            return upsert_quickresto_order(order_data)
 
-    except Exception as e:
-        return JsonResponse({'error': f'Failed to change order status: {str(e)}'}, status=500)
-
-
-# Дополнительный endpoint для ручной синхронизации
 @csrf_exempt
 @require_POST
 def sync_quickresto_orders(request):
-    """Ручная синхронизация заказов"""
-    try:
-        # Проверка авторизации (добавьте свою логику)
-        auth_token = request.headers.get('Authorization')
-        if not auth_token or auth_token != f"Bearer {settings.QUICKRESTO_API_KEY}":
-            return JsonResponse({'error': 'Unauthorized'}, status=401)
+    """Ручной запуск синхронизации"""
+    auth = request.headers.get('Authorization')
 
-        # Запускаем синхронизацию
-        result = sync_orders_with_quickresto.delay()  # Асинхронно через Celery
+    # ⚠️ ВРЕМЕННО, НЕ ПРОД
+    if auth != f"Bearer {settings.QUICKRESTO_API_KEY}":
+        return JsonResponse({'error': 'Unauthorized'}, status=401)
 
-        return JsonResponse({
-            'status': 'success',
-            'message': 'Sync started',
-            'task_id': result.id
-        })
+    task = sync_orders_with_quickresto.delay()
+    return JsonResponse({'status': 'started', 'task_id': task.id})
 
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
-
-
-# Endpoint для проверки статуса заказа
 def get_order_status(request, order_id):
-    """Получение статуса заказа"""
     try:
-        order = QuickRestoOrder.objects.get(quickresto_id=order_id)
-
+        order = QuickRestoOrder.objects.get(quickresto_id=str(order_id))
         return JsonResponse({
-            'status': 'success',
-            'order_id': order.quickresto_id,
             'order_number': order.order_number,
             'status': order.status,
-            'customer_name': order.customer_name,
-            'total_amount': str(order.total_amount),
+            'total': str(order.total_amount),
             'created_at': order.created_at.isoformat()
         })
-
     except QuickRestoOrder.DoesNotExist:
         return JsonResponse({'error': 'Order not found'}, status=404)
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
-
-
-# main/views.py - добавьте эту функцию
-from django.http import JsonResponse
-from django.conf import settings
-import requests
-from requests.auth import HTTPBasicAuth
-
-
-def test_quickresto_api(request):
-    """Тестовый endpoint для проверки подключения к Quick Resto"""
-    try:
-        api_config = settings.QUICK_RESTO_API
-
-        base_url = api_config['BASE_URL'].format(
-            layer_name=api_config['LAYER_NAME']
-        )
-        auth = HTTPBasicAuth(
-            api_config['USERNAME'],
-            api_config['PASSWORD']
-        )
-
-        headers = {
-            'Content-Type': 'application/json',
-            'Connection': 'keep-alive',
-        }
-
-        # Тестовый запрос - получение единиц измерения
-        url = f"{base_url}/api/list?moduleName=core.dictionaries.measureunits&className=ru.edgex.quickresto.modules.core.dictionaries.measureunits.MeasureUnit"
-
-        response = requests.get(url, auth=auth, headers=headers, timeout=30)
-        response.raise_for_status()
-
-        data = response.json()
-
-        return JsonResponse({
-            'status': 'success',
-            'message': 'Подключение к Quick Resto API успешно',
-            'data_count': len(data),
-            'first_item': data[0] if data else None
-        })
-
-    except Exception as e:
-        return JsonResponse({
-            'status': 'error',
-            'message': str(e),
-            'config': {
-                'base_url': api_config['BASE_URL'],
-                'layer_name': api_config['LAYER_NAME'],
-                'username': api_config['USERNAME'][:5] + '...'
-            }
-        }, status=500)

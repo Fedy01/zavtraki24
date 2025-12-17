@@ -1,32 +1,39 @@
-# management/commands/sync_quickresto.py
 from django.core.management.base import BaseCommand
-from app.services.sync_service import QuickRestoSyncService
+from main.services.sync_service import QuickRestoSyncService
 
 
 class Command(BaseCommand):
-    help = 'Синхронизация данных с Quick Resto'
+    help = "Синхронизация данных с Quick Resto"
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--type',
+            "--type",
             type=str,
-            choices=['products', 'orders', 'all'],
-            default='all'
+            choices=["products", "orders", "all"],
+            default="all",
+            help="Тип данных для синхронизации: products, orders или all",
         )
 
     def handle(self, *args, **options):
         sync_service = QuickRestoSyncService()
+        sync_type = options.get("type", "all")
 
-        if options['type'] in ['products', 'all']:
-            self.stdout.write('Синхронизация товаров...')
-            if sync_service.sync_products():
-                self.stdout.write('✓ Товары синхронизированы')
-            else:
-                self.stdout.write('✗ Ошибка синхронизации товаров')
+        try:
+            if sync_type in ["products", "all"]:
+                self.stdout.write("Синхронизация товаров...")
+                success = sync_service.sync_products()
+                if success:
+                    self.stdout.write(self.style.SUCCESS("✓ Товары синхронизированы"))
+                else:
+                    self.stdout.write(self.style.ERROR("✗ Ошибка синхронизации товаров"))
 
-        if options['type'] in ['orders', 'all']:
-            self.stdout.write('Синхронизация заказов...')
-            if sync_service.sync_orders():
-                self.stdout.write('✓ Заказы синхронизированы')
-            else:
-                self.stdout.write('✗ Ошибка синхронизации заказов')
+            if sync_type in ["orders", "all"]:
+                self.stdout.write("Синхронизация заказов...")
+                success = sync_service.sync_orders()
+                if success:
+                    self.stdout.write(self.style.SUCCESS("✓ Заказы синхронизированы"))
+                else:
+                    self.stdout.write(self.style.ERROR("✗ Ошибка синхронизации заказов"))
+
+        except Exception as e:
+            self.stdout.write(self.style.ERROR(f"Произошла ошибка во время синхронизации: {e}"))
